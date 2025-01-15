@@ -5,7 +5,7 @@ import fetchSentence from "@/lib/sentenceProvider";
 import { Courier_Prime } from 'next/font/google';
 
  const courierPrime = Courier_Prime({
-  weight: '400',
+  weight: '700',
   subsets: ['latin'],
 });
 
@@ -59,6 +59,7 @@ export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , resta
             });
 
             console.log(calculateTypingStats(correct,totalChar,min))
+         initTypingSetup();
 
             setDialogOpen(true)
             // set Real RESULT //

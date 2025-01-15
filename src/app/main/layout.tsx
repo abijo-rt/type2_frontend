@@ -30,7 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Keyboard sx={{ fontSize: 45 }} className={` text-xl ${currentTheme.text}`}  />
         <p className={`${currentTheme.text} text-4xl ${jersey15.className}`} >NAME NOT YET DECIDED</p>
       </div>
-        <ThemeChanger></ThemeChanger>
+      <ThemeChanger></ThemeChanger>
       </div> 
   
       <div className="h-[92%]">{children}</div>

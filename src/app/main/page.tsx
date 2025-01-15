@@ -14,14 +14,20 @@ const Main = () => {
 
   return (
   
-          <div className={ `h-full flex items-center justify-center  w-screen ${currentTheme.background} ${jersey15.className} `}>
+          <div className={ `h-full flex items-center justify-center  w-screen ${currentTheme.background} ${jersey15.className} space-x-10 `}>
+
           <div className={`space-y-10 w-96 h-96 flex flex-col items-center justify-center rounded-2xl ${currentTheme.secondary} `}>
-          <h1 className={`text-5xl  ${currentTheme.text}`} >Player Mode</h1>
-          
-          <Link href="main/solo" className={`text-3xl hover:underline  ${currentTheme.text}`} >Solo Player</Link>
-          <Link href="main/multiplayer"className= {`text-3xl hover:underline ${currentTheme.text}`} >Multiplayer Player</Link>
-          <Link href="main/multiplayer"className= {`text-3xl hover:underline ${currentTheme.text}`} > Pratice Mode</Link>
-      </div>
+          <h1 className={`text-5xl  ${currentTheme.text}`} >Solo Player</h1>
+          <div className='text-3xl hover:underline'><Link href="main/solo" className={`  ${currentTheme.text}`} >Start Typing</Link></div>
+          <div className='text-3xl hover:underline'><Link href="main/multiplayer" className={`  ${currentTheme.text}`} >Pratice Mode</Link></div>
+          </div>
+
+          <div className={`space-y-10 w-96 h-96 flex flex-col items-center justify-center rounded-2xl ${currentTheme.secondary} `}>
+          <h1 className={`text-5xl  ${currentTheme.text}`} >Multiplayer Player </h1>
+          <div className='text-3xl hover:underline'><Link href="main/createRoom" className={`  ${currentTheme.text}`} >Create Room</Link></div>
+          <div className='text-3xl hover:underline'><Link href="main/joinRoom" className={`  ${currentTheme.text}`} >Join Room</Link></div>
+          </div>
+
       </div>
   );
 };
