@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@/app/theme";
 import fetchSentence from "@/lib/sentenceProvider";
 
-import { Courier_Prime } from 'next/font/google';
+// import { Courier_Prime } from 'next/font/google';
+//  const courierPrime = Courier_Prime({
+//   weight: '700',
+//   subsets: ['latin'],
+// });
 
- const courierPrime = Courier_Prime({
-  weight: '700',
-  subsets: ['latin'],
-});
+import localFont from 'next/font/local'
+const courierPrime = localFont({
+  src: '../../../../public/fonts/CourierPrime-Bold.ttf', // Adjust the path based on your font file location
+
+})
 
 interface TypingProps {
     startTyping: () => void; 
@@ -17,9 +22,14 @@ interface TypingProps {
     setNext:React.Dispatch<React.SetStateAction<boolean>>;
     isDialogOpen : boolean ;
     setDialogOpen : React.Dispatch<React.SetStateAction<boolean>>
+    setResult : React.Dispatch<React.SetStateAction<{
+        WPM: number;
+        Accuracy: number;
+        Error: number;
+    }>>
 }
 
-export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , restartStatus ,nextSentence ,setNext , isDialogOpen , setDialogOpen}) => {
+export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , restartStatus ,nextSentence ,setNext  , setDialogOpen , setResult}) => {
 
     const {currentTheme} = useTheme();
     
@@ -47,6 +57,7 @@ export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , resta
         initTypingSetup();
     }, [sentence,restartStatus,nextSentence]);
 
+    
     useEffect(()=>{
         // alert(gameStatus)
         if(gameStatus){
@@ -58,13 +69,17 @@ export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , resta
                 if(element !=null) totalChar++;
             });
 
-            console.log(calculateTypingStats(correct,totalChar,min))
+            const { wpm, accuracy, errors } = calculateTypingStats(correct,totalChar,min)
+
+            setResult({
+                WPM: wpm,
+                Accuracy: accuracy, // Convert string to a number if needed
+                Error: errors,
+            });
+
+           
          initTypingSetup();
-
             setDialogOpen(true)
-            // set Real RESULT //
-
-
         }
     },[gameStatus])
 
@@ -116,7 +131,7 @@ export const Typing: React.FC<TypingProps> = ({ startTyping , gameStatus , resta
     
         const wpm = timeInMinutes > 0 ? Math.floor((correctChars / 5) / timeInMinutes) : 0;
         const accuracy = totalCharsTyped > 0
-            ? ((correctChars / totalCharsTyped) * 100).toFixed(2)
+            ? ((correctChars / totalCharsTyped) * 100)
             : 0;
         const errors = totalCharsTyped - correctChars;
     

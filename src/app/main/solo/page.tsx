@@ -10,7 +10,11 @@ import { Bnav } from "./bottomNav";
 import { Result } from "./result";
 
 
-
+const initresult = {
+  WPM: 5,
+  Accuracy: 9,
+  Error: 3
+}
 
 
 const Solo = () => {
@@ -22,6 +26,7 @@ const Solo = () => {
   const [nextStatus,SetNextStatus] = useState(true)
   const [gameOver,setGameOver] = useState(false)
   const [showResult , setShowResult] = useState(false)
+  const [result , setResult] = useState(initresult)
 
   const startTyping = () => {
     SetTimerStatus(true)
@@ -76,18 +81,13 @@ const Solo = () => {
     console.log(timer)
   };
   
-  const result = {
-    WPM: 5,
-    Accuracy: 9,
-    Error: 3
-
-  }
+ 
 
   return (
     <div className={`w-full h-full ${currentTheme.background} flex flex-col items-center`}>
            <div className="h-[85%] flex flex-col  items-center">
             <div className="h-[20%]"> <Timer gameStatusChanger={gameStatus} time={timer} timerStatus = {timerStatus} ResetTimer = { resetTimerStatus} setReset={SetResetTimerStatus} stopTimer = {SetTimerStatus}/></div>
-             <div className="w-[60%] h[20%]"><Typing startTyping={startTyping} gameStatus={gameOver} restartStatus={resetTimerStatus} nextSentence={nextStatus} setNext={SetNextStatus} setDialogOpen = {setShowResult} isDialogOpen={showResult}/> </div>
+             <div className="w-[60%] h[20%]"><Typing setResult={setResult} startTyping={startTyping} gameStatus={gameOver} restartStatus={resetTimerStatus} nextSentence={nextStatus} setNext={SetNextStatus} setDialogOpen = {setShowResult} isDialogOpen={showResult} /> </div>
             <Result restart={resetTyping} next={nextTyping} result = {result} setDialogOpen = {setShowResult} isDialogOpen={showResult}></Result>
            </div>
             <Bnav setTime = {setTime} timer={timer} nextTyping={nextTyping} resetTyping={resetTyping} /> 

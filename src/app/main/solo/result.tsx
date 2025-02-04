@@ -6,18 +6,24 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTheme } from "../../theme";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 const jersey15 = localFont({
   src: '../../../../public/fonts/Jersey15-Regular.ttf', // Adjust the path based on your font file location
 
 })
-import localFont from "next/font/local";
-import { Courier_Prime } from 'next/font/google';
+// import localFont from "next/font/local";
+// import { Courier_Prime } from 'next/font/google';
 
- const courierPrime = Courier_Prime({
-  weight: '700',
-  subsets: ['latin'],
-});
+//  const courierPrime = Courier_Prime({
+//   weight: '700',
+//   subsets: ['latin'],
+// });
+
+import localFont from 'next/font/local'
+const courierPrime = localFont({
+  src: '../../../../public/fonts/CourierPrime-Regular.ttf', // Adjust the path based on your font file location
+
+})
 
 interface IResult {
     result: {
@@ -50,7 +56,6 @@ export const Result: React.FC<IResult> = ({ result, restart, next ,setDialogOpen
 
     return (
         <>
-         
 
             <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
@@ -69,7 +74,7 @@ export const Result: React.FC<IResult> = ({ result, restart, next ,setDialogOpen
 
                         <div className={`${jersey15.className}`}>
                             <p className="text-8xl" >WPM: {result.WPM}</p>
-                           <div className="flex space-x-3"> <p className="text-5xl" >Accuracy: {result.Accuracy}%</p> <p className="text-5xl">|</p>
+                           <div className="flex space-x-3"> <p className="text-5xl" >Accuracy: {String(result.Accuracy.toFixed(0))}%</p> <p className="text-5xl">|</p>
                             <p className="text-5xl">Errors: {result.Error}</p></div>
                         </div>
 

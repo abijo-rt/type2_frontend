@@ -3,15 +3,19 @@ import {  ChevronLeft, KeyboardDoubleArrowRight ,ChevronRight
   , Replay, 
   Home} from "@mui/icons-material";
 
-import { Courier_Prime } from 'next/font/google';
+// import { Courier_Prime } from 'next/font/google';
 import Link from "next/link";
 
- const courierPrime = Courier_Prime({
-  weight: '700',
-  subsets: ['latin'],
-});
+//  const courierPrime = Courier_Prime({
+//   weight: '700',
+//   subsets: ['latin'],
+// });
 
+import localFont from 'next/font/local'
+const courierPrime = localFont({
+  src: '../../../../public/fonts/CourierPrime-Regular.ttf', // Adjust the path based on your font file location
 
+})
 
 interface Ibnav {
     timer:{

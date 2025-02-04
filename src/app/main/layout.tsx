@@ -2,18 +2,11 @@
 "use client";
 
 import localFont from 'next/font/local'
-
 const jersey15 = localFont({
   src: '../../../public/fonts/Jersey15-Regular.ttf', // Adjust the path based on your font file location
 
 })
 
-import { Courier_Prime } from 'next/font/google';
-
- const courierPrime = Courier_Prime({
-  weight: '700',
-  subsets: ['latin'],
-});
 
 
 import React from "react";

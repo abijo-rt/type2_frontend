@@ -6,9 +6,6 @@ export default function fetchSentence  ()  {
     const idx =  Math.floor(Math.random() * 5);
     return sentences[idx]
 
-
-
-
 }
     
 const sentences = [

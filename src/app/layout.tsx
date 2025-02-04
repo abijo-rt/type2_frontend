@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "./theme";
+import { Toaster } from "@/components/ui/toaster"
+
+
 
 
 
@@ -21,6 +24,8 @@ export default function RootLayout({
       <body >
       <ThemeProvider>
         {children}
+        <Toaster />
+
     </ThemeProvider>
       </body>
     </html>

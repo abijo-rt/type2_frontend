@@ -20,9 +20,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ThemeName>('forest');
   const [currentTheme, setCurrTheme] = useState<ThemeColors>(themes['forest']);
 
-  // Use a useEffect to load the theme from localStorage once on mount
   useEffect(() => {
-    // console.log("osadjfjas")
     const savedTheme = localStorage.getItem('theme') as ThemeName;
     if (savedTheme && themes[savedTheme]) {
       setTheme(savedTheme);
@@ -31,7 +29,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       setTheme('dark');
       setCurrTheme(themes['dark']);
     }
-  }, []); // Empty array to run only once when component mounts
+  }, []); 
 
   const changeTheme = (newTheme: ThemeName) => {
     console.log('Changing theme to:', newTheme);
