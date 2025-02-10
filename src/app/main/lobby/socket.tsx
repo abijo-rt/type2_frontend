@@ -30,10 +30,18 @@ export const playerJoined = (callback: (room: {name:string,id:string}[]) => void
     });
 };
 
-export const playerLimitChangeListener = (callback : (incOrdecr : boolean) => void) => {
+// change the data of inOReder to number from boolean in case of probmen change to boolean ;
+export const playerLimitChangeListener = (callback : (incOrdecr : number) => void) => {
     const socket = getSocket();
     socket.on('player change', (data) => {
         callback(data)
+    })
+}
+
+export const gameStart = (callback : (sentence : string) => void ) => {
+    const socket = getSocket();
+    socket.on('notify game start', (sentence : string) => {
+        callback(sentence);
     })
 }
 
@@ -50,4 +58,14 @@ export const changePlayerCount = (incORdecr : boolean , userLimit : number,  cur
             if(response) customTosat(2,toast)
         } );
     }
+}
+
+export const startGame = ( roomid : string , callback:(status : boolean)=>void ) => {
+
+    const socket = getSocket()
+    socket.emit("start game" , { roomid } ,(response : boolean) => { 
+        callback(response);
+    })
+
+
 }

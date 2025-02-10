@@ -11,9 +11,9 @@ import { Result } from "./result";
 
 
 const initresult = {
-  WPM: 5,
-  Accuracy: 9,
-  Error: 3
+  WPM: 0,
+  Accuracy: 0,
+  Error: 0
 }
 
 
@@ -31,6 +31,7 @@ const Solo = () => {
   const startTyping = () => {
     SetTimerStatus(true)
   }
+  
   const resetTyping = () => {
     SetResetTimerStatus(!resetTimerStatus)
     SetTimerStatus(false)

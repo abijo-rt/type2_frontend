@@ -21,7 +21,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className={`flex flex-row w-full items-center justify-between  p-5  h-[8%] ${currentTheme.background}`}>
       <div className="flex space-x-8 items-center"> 
         <Keyboard sx={{ fontSize: 45 }} className={` text-xl ${currentTheme.text}`}  />
-        <p className={`${currentTheme.text} text-4xl ${jersey15.className}`} >NAME NOT YET DECIDED</p>
+        <p className={`${currentTheme.text} text-4xl ${jersey15.className}`} >Type Master</p>
       </div>
       <ThemeChanger></ThemeChanger>
       </div> 

@@ -46,6 +46,7 @@ const JoinRoom = () => {
         console.log(roomid)
         socket.emit("join room" , {roomid} , (response: IJoinRoom  )=> {
             console.log(response)
+            
             if(response.status == 'room not found' ){
               alert("ROOM NOT FOUND")
               return ;

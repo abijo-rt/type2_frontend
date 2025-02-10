@@ -2,7 +2,7 @@
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:3001"; // Replace with your server URL
+const SOCKET_URL = "http://192.168.137.1:3001"; // Replace with your server URL
 
 let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 

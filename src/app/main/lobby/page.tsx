@@ -1,18 +1,21 @@
 "use client";
 import { useTheme } from "@/app/theme";
-import {  useSearchParams } from "next/navigation";
+import {  useRouter, useSearchParams } from "next/navigation";
 import localFont from "next/font/local";
 import { AccountCircle, Badge, Group, Timer, Lock, Help, Person, AddCircle, RemoveCircle } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast"
 import { customTosat } from "./Toast1";
-import { changePlayerCount,  playerJoined, playerLimitChangeListener } from "./socket";
+import { changePlayerCount,  gameStart,  playerJoined, playerLimitChangeListener, startGame } from "./socket";
 import { initializeSocket } from "@/lib/socket";
+import router from "next/router";
 
 const jersey15 = localFont({
   src: "../../../../public/fonts/Jersey15-Regular.ttf",
 });
+
+
 
 interface IcreateRoom {
   sucess: boolean;
@@ -46,8 +49,6 @@ const re_align = (
   playerDetails: Array<{name: string, id: string}>,
   context: string
 ) => {
-  // console.log(`Re-align called from: ${context}`);
-  // console.log("Input playerDetails:", playerDetails);
   
   const result = new Array(10).fill(null).map((_, index) => {
     if (index < playerJoined) {
@@ -67,12 +68,17 @@ const re_align = (
 };
 
 const Lobby = () => {
+
+  const router = useRouter()
+
   const searchParams = useSearchParams();
   const dataString = searchParams.get('data');
   const roomDataNew: IcreateRoom | null = dataString ? JSON.parse(decodeURIComponent(dataString)) : null;
   const socket = initializeSocket();
   const { toast } = useToast();
   const { currentTheme } = useTheme();
+
+  
 
   // Initialize state with proper error handling
   const [roomData, setRoomData] = useState<ILooby>(() => {
@@ -119,14 +125,48 @@ const Lobby = () => {
         }))
     }
 
+    // const gameStarted = ( sentence : string) => {
+    //     console.log(sentence)
+    //     console.log(roomData)
+    //     const gameData = {
+    //       sentence,
+    //       roomData
+    //   };
+  
+    //   const serializedData = encodeURIComponent(JSON.stringify(gameData));
+    //   // router.push(`multiplayer/gameSpace?data=${serializedData}`);
+
+    // }
+
     playerLimitChangeListener(handlePlayerChange)
     playerJoined(handlePlayerJoined);
+    // gameStart(gameStarted)
 
     return () => {
       socket.off("playerJoined", handlePlayerJoined);
       socket.off("playerLimitChange", handlePlayerChange);
     };
-  }, []);
+  }, [socket, toast]);
+
+    useEffect(()=>{
+      // console.log("roomtdata"  +roomData)
+      const gameStarted = ( sentence : string) => {
+        console.log(sentence)
+        console.log(roomData)
+        const gameData = {
+          sentence,
+          roomData
+      };
+  
+      const serializedData = encodeURIComponent(JSON.stringify(gameData));
+      router.push(`multiplayer/gameSpace?data=${serializedData}`);
+      
+    }
+      gameStart(gameStarted)
+      console.log(roomData)
+    },[roomData])
+
+
 
 
   return (
@@ -229,8 +269,11 @@ const Lobby = () => {
           {   roomData.roomHost === roomData.your_name &&
             <button 
               onClick={() => {
-                customTosat(1, toast);
-                console.log('Room Data:', roomDataNew);
+                startGame( roomData.roomId , (status:boolean)=>{
+                  if(!status) {
+                    alert("error occur in starting game");
+                  }
+                })
               }}
               className={`h-[80%] w-[20%] border-2 rounded-xl ${currentTheme.border}`}
             >
